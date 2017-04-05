@@ -1,23 +1,17 @@
 import React from 'react'
-import axios from 'axios'
 import groupBy from 'lodash/groupBy'
 import uniq from 'lodash/uniq'
 import css from '../styles/home.styl'
+import { connect } from 'react-redux'
+import { getMatchData } from '../actions'
 
-export default class Home extends React.Component {
+class Home extends React.Component {
     constructor(props){
       super(props);
       this.state = { data : [] }
     }
     componentDidMount(){
-      axios.get('/api/')
-           .then(
-             ({data}) => {
-                 this.setState({data:data})
-                 let x = uniq(groupBy(data,'season')[2008].map(({team1}) => team1))
-
-             }
-           )
+        this.props.getMatchData()
     }
     render(){
       return(
@@ -27,3 +21,8 @@ export default class Home extends React.Component {
       );
     }
 }
+
+export default connect(
+    ({MatchData}) => ({...MatchData}),
+    {getMatchData}
+)(Home)

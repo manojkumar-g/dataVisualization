@@ -1,5 +1,5 @@
-const reducer = (state = {}) =>{
-    return state;
-}
-
-export default reducer
+import { combineReducers } from 'redux'
+import MatchData from './match'
+export default combineReducers(
+    {MatchData}
+)
