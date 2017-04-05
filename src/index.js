@@ -1,6 +1,11 @@
 import React from 'react';
 import {render} from 'react-dom';
-import css from './styles/home.styl'
-import App from'./containers/index.jsx'
+import {Provider} from 'react-redux';
+import App from './containers/index.jsx'
+import store from './configureStore';
 
-render(<App/>,document.getElementById('root'));
+render(
+  <Provider store = {store}>
+    <App/>
+  </Provider>
+  ,document.getElementById('root'));

@@ -1,4 +1,8 @@
 import React from 'react'
+import axios from 'axios'
+import groupBy from 'lodash/groupBy'
+import uniq from 'lodash/uniq'
+import css from '../styles/home.styl'
 
 export default class Home extends React.Component {
     constructor(props){
@@ -8,12 +12,17 @@ export default class Home extends React.Component {
     componentDidMount(){
       axios.get('/api/')
            .then(
-             res => {this.setState({data:res.data})}
+             ({data}) => {
+                 this.setState({data:data})
+                 let x = uniq(groupBy(data,'season')[2008].map(({team1}) => team1))
+
+             }
            )
     }
     render(){
       return(
-        <section className="content">
+        <section className="homeContent">
+
         </section>
       );
     }

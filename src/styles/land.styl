@@ -1,0 +1,59 @@
+@import "jeet"
+@import "rupture"
+
+*
+  box-sizing: border-box
+  position: relative
+
+body
+  background: #2980b9; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #2980b9 , #2c3e50); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #2980b9 , #2c3e50); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+.container
+  margin: 10vh
+  center(960px)
+  height: 90vh
+  background: black
+  border-radius: 10px
+.content
+   column(9/10)
+   height: 100%
+   +below(600px)
+       column(8/10)
+.menu
+  column(1/10)
+  background: black
+  box-shadow: 24px 0px 44px 0px rgba(0,0,0,0.75)
+  height: 100%
+  +below(600px)
+      column(2/10)
+  .menuItem
+    cursor: pointer
+    column(1)
+    font-size: 2em
+    text-align: center
+    color white
+    height: 60px
+    transition: all 1s
+    margin-top: 10px
+    i
+      margin-top 10px
+    &::before
+      content: ''
+      width: 8px
+      background: white
+      position: absolute
+      height: 0px
+      left 0
+      transition: all 1s
+      +below(600px)
+          width: 4px
+  .menuItem:hover
+  .menuActive
+    background: maroon
+    &::before
+      height: 60px
+
+  .menuItem:first-of-type
+     margin-top: 0px
