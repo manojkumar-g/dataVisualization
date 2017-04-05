@@ -1,9 +1,15 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import css from '../styles/land.styl'
 import Menu from '../components/Menu.jsx'
 import Home from '../components/Home.jsx'
+import { getMatchData } from '../actions'
 
-export default class App extends React.Component{
+class App extends React.Component{
+
+  componentDidMount(){
+      this.props.getMatchData()
+  }
 
   render(){
     return(
@@ -17,3 +23,8 @@ export default class App extends React.Component{
     );
   }
 }
+
+export default connect(
+    undefined,
+    {getMatchData}
+)(App)

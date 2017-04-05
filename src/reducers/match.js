@@ -9,7 +9,6 @@ import findIndex from 'lodash/findIndex'
 import sortBy from 'lodash/sortBy'
 
 const initialState = {
-    matchData :[],
     seasonData:{},
     tableData :[],
     error:'',
@@ -28,7 +27,7 @@ const reducer = (state = initialState,action) =>{
             let seasonData = mapKeys(groupBy(data,'season'),
                                                 (_,key) => 'ipl'+key
                                                     )
-            let extractedData =   transform(
+            let tableData =   transform(
                                             seasonData,
                                             (result,value,key) => {
                                                 let table = uniq(value.map(
@@ -57,12 +56,13 @@ const reducer = (state = initialState,action) =>{
                                                 result.push(
                                                     {
                                                         key,
-                                                        table
+                                                        table:table.sort((a,b) => b.pts-a.pts)
                                                     }
                                                 )
                                             },
                                             []
                                         )
+
 
 
             return{
@@ -71,7 +71,7 @@ const reducer = (state = initialState,action) =>{
               successDataFetch:true,
               seasonData,
               data,
-              tableData : extractedData.sort((a,b) => a.pts-b.pts)
+              tableData
 
             }
         case 'FAILURE_MATCH_DATA':
