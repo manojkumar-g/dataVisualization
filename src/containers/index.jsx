@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios'
 import Menu from '../components/Menu.jsx'
+import Home from '../components/Home.jsx'
 
 export default class App extends React.Component{
   constructor(props){
@@ -17,6 +18,7 @@ export default class App extends React.Component{
     return(
       <div className="container">
         <Menu/>
+        <Home/>
       </div>
     );
   }
