@@ -7,7 +7,8 @@ import {
   VictoryTransition,
   VictoryContainer,
   VictorySharedEvents,
-  VictoryLabel
+  VictoryLabel,
+  VictoryLegend
 } from 'victory'
 import Dot from './Dot.jsx'
 
@@ -22,7 +23,6 @@ class Home extends React.Component {
           let {tableData} = this.props
           let {season} = this.state
           this.setState({season : season+1 < tableData.length ?  season+1 : 0})
-          console.log('HI');
       },4000
       )
     }
@@ -48,26 +48,19 @@ class Home extends React.Component {
               }
 
               </article>
-              {tableData.length == 0 ?'':
-                <article className="sumGraph">
 
+                <article className="sumGraph">
+              {tableData.length == 0 ?'':
               <svg height={300}>
               <VictoryTransition
                 animationWhitelist={['data']}
                 animate={{
-                  duration :1000,
+                  duration:1000,
                   onLoad: {
                         duration: 100,
-                        after: () => {
-                          return{pts: 0}
-                        }
                       },
                   onEnter: {
                         duration: 100,
-                        after: () => {
-                          return{pts: 0}
-
-                        }
                       }
                 }}
                 >
@@ -83,12 +76,13 @@ class Home extends React.Component {
                   innerRadius={60}
                   labelRadius={74}
                   padAngle={3}
+                  colorScale = {'qualitative'}
                   style={{
                     data: {
                       width: 60
                     },
                     labels: {
-                      fill: '#FDFEFE',
+                      fill: 'black',
                       fontSize: 20
                     }
                   }} />
@@ -101,8 +95,12 @@ class Home extends React.Component {
                  />
                </svg>
 
-              </article>}
+          }
+              </article>
+
+
             </section>
+
         </section>
       );
     }
