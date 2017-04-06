@@ -1,6 +1,5 @@
-@import url('https://fonts.googleapis.com/css?family=Revalia')
-@import "jeet"
-@import "rupture"
+@import url('https://fonts.googleapis.com/css?family=Revalia|Ubuntu')
+
 
 .hello
   color white
@@ -30,8 +29,21 @@
   .dotActive
     animation: glow 1s infinite alternate
 .sumGraph
-  column(1/4)
-  height 100%
+  span(1/2)
+  height: 500px
+.table
+  span(1/2)
+  height: 500px
+.tableData
+  column(1)
+  span
+    margin-top: 50px
+    column(1)
+    font-family: Ubuntu
+    text-transform: uppercase
+    color maroon
+    font-size 2em
+  height: 100%
 @keyframes glow
   from
     transform scale(1.3)

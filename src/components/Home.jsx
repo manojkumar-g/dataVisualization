@@ -7,8 +7,7 @@ import {
   VictoryTransition,
   VictoryContainer,
   VictorySharedEvents,
-  VictoryLabel,
-  VictoryLegend
+  VictoryLabel
 } from 'victory'
 import Dot from './Dot.jsx'
 
@@ -25,6 +24,22 @@ class Home extends React.Component {
           this.setState({season : season+1 < tableData.length ?  season+1 : 0})
       },4000
       )
+    }
+    colorSchema = () => {
+      let {tableData} = this.props
+      let {season} = this.state
+      if(tableData.length > 0){
+        return tableData[season].table.map(
+          ({name}) => {
+            switch (name) {
+              case 'Manoj':
+                return 'red'
+              default:
+                return 'green'
+            }
+          }
+        )
+      }
     }
     onDotClick = (season) =>{
       this.setState({
@@ -49,18 +64,28 @@ class Home extends React.Component {
 
               </article>
 
-                <article className="sumGraph">
+              <article className="sumGraph">
               {tableData.length == 0 ?'':
+
               <svg height={300}>
               <VictoryTransition
                 animationWhitelist={['data']}
                 animate={{
                   duration:1000,
+                  onExit: {
+                        duration: 1000,
+
+                      },
                   onLoad: {
-                        duration: 100,
+                        duration: 1000,
+
                       },
                   onEnter: {
                         duration: 100,
+                        after: () => {
+                          return{y: 0}
+
+                        }
                       }
                 }}
                 >
@@ -76,7 +101,7 @@ class Home extends React.Component {
                   innerRadius={60}
                   labelRadius={74}
                   padAngle={3}
-                  colorScale = {'qualitative'}
+                  colorScale = {this.colorSchema()}
                   style={{
                     data: {
                       width: 60
@@ -95,12 +120,19 @@ class Home extends React.Component {
                  />
                </svg>
 
-          }
+              }
               </article>
+              <article className = 'table'>
+                {
+                  tableData.length ===0 ? '':
+                      <div className = 'tableData'>
+                        <span>{tableData[season].key}</span>
+                      </div>
+                }
 
 
+              </article>
             </section>
-
         </section>
       );
     }
