@@ -2,7 +2,13 @@ import React from 'react'
 import range from 'lodash/range'
 import css from '../styles/home.styl'
 import { connect } from 'react-redux'
-import { VictoryPie,VictoryChart,VictoryAxis, VictoryTheme, VictoryLabel, VictoryTransition } from 'victory'
+import {
+  VictoryPie,
+  VictoryTransition,
+  VictoryContainer,
+  VictorySharedEvents,
+  VictoryLabel
+} from 'victory'
 import Dot from './Dot.jsx'
 
 class Home extends React.Component {
@@ -45,38 +51,55 @@ class Home extends React.Component {
               {tableData.length == 0 ?'':
                 <article className="sumGraph">
 
-                  <svg height={300}>
-    <VictoryTransition animationWhitelist={['data']}>
-      <VictoryPie
-        animate={{ duration: 1000 }}
-        width={300}
-        height={300}
-        standalone={false}
-        data={tableData[season].table}
-        x = 'name'
-        y = 'pts'
-        labels={(d) => Math.round(d.y)}
-        innerRadius={60}
-        labelRadius={74}
-        padAngle={3}
-        style={{
-          data: {
-            width: 60
-          },
-          labels: {
-            fill: '#FDFEFE',
-            fontSize: 20
-          }
-        }} />
-    </VictoryTransition>
-    <VictoryLabel
-      textAnchor='middle'
-      verticalAnchor='middle'
-      x={150}
-      y={150}
-      style={{fontSize: 50, fontFamily: 'Roboto Condensed', fill: '#651747'}}
-       />
-  </svg>
+              <svg height={300}>
+              <VictoryTransition
+                animationWhitelist={['data']}
+                animate={{
+                  duration :1000,
+                  onLoad: {
+                        duration: 100,
+                        after: () => {
+                          return{pts: 0}
+                        }
+                      },
+                  onEnter: {
+                        duration: 100,
+                        after: () => {
+                          return{pts: 0}
+
+                        }
+                      }
+                }}
+                >
+                <VictoryPie
+
+                  width={300}
+                  height={300}
+                  standalone={false}
+                  data={tableData[season].table}
+                  x = 'name'
+                  y = 'pts'
+                  labels={(d) => Math.round(d.y)}
+                  innerRadius={60}
+                  labelRadius={74}
+                  padAngle={3}
+                  style={{
+                    data: {
+                      width: 60
+                    },
+                    labels: {
+                      fill: '#FDFEFE',
+                      fontSize: 20
+                    }
+                  }} />
+              </VictoryTransition>
+              <VictoryLabel
+                textAnchor='middle'
+                verticalAnchor='middle'
+                x={150}
+                y={150}
+                 />
+               </svg>
 
               </article>}
             </section>

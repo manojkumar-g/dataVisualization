@@ -15,6 +15,7 @@ app.use(require('webpack-dev-middleware')(compiler, {
   noInfo : true,
   hot : true
 }));
+
 app.use(require('webpack-hot-middleware')(compiler));
 
 app.use(bodyParser.json());
