@@ -2,7 +2,7 @@ import React from 'react'
 import range from 'lodash/range'
 import css from '../styles/home.styl'
 import { connect } from 'react-redux'
-import { VictoryPie,VictoryChart,VictoryAxis, VictoryTheme } from 'victory'
+import { VictoryPie,VictoryChart,VictoryAxis, VictoryTheme, VictoryLabel, VictoryTransition } from 'victory'
 import Dot from './Dot.jsx'
 
 class Home extends React.Component {
@@ -44,18 +44,39 @@ class Home extends React.Component {
               </article>
               {tableData.length == 0 ?'':
                 <article className="sumGraph">
-                  <VictoryChart animate = {{duration:500}} >
-                      <VictoryAxis/>
-                      <VictoryAxis dependentAxis/>
-                      <VictoryPie
-                        data ={tableData[season].table}
-                        x = 'name'
-                        y = 'pts'
-                        innerRadius = {140}
-                        
-                        >
-                      </VictoryPie>
-                  </VictoryChart>
+
+                  <svg height={300}>
+    <VictoryTransition animationWhitelist={['data']}>
+      <VictoryPie
+        animate={{ duration: 1000 }}
+        width={300}
+        height={300}
+        standalone={false}
+        data={tableData[season].table}
+        x = 'name'
+        y = 'pts'
+        labels={(d) => Math.round(d.y)}
+        innerRadius={60}
+        labelRadius={74}
+        padAngle={3}
+        style={{
+          data: {
+            width: 60
+          },
+          labels: {
+            fill: '#FDFEFE',
+            fontSize: 20
+          }
+        }} />
+    </VictoryTransition>
+    <VictoryLabel
+      textAnchor='middle'
+      verticalAnchor='middle'
+      x={150}
+      y={150}
+      style={{fontSize: 50, fontFamily: 'Roboto Condensed', fill: '#651747'}}
+       />
+  </svg>
 
               </article>}
             </section>
