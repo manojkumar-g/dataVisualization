@@ -10,6 +10,9 @@ import {
   VictoryLabel
 } from 'victory'
 import Dot from './Dot.jsx'
+import { getColor } from '../utils/colors'
+import sortBy from 'lodash/sortBy'
+
 
 class Home extends React.Component {
     constructor(props){
@@ -31,12 +34,8 @@ class Home extends React.Component {
       if(tableData.length > 0){
         return tableData[season].table.map(
           ({name}) => {
-            switch (name) {
-              case 'Manoj':
-                return 'red'
-              default:
-                return 'green'
-            }
+            console.log(name)
+            return getColor(name)
           }
         )
       }

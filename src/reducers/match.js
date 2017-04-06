@@ -56,7 +56,7 @@ const reducer = (state = initialState,action) =>{
                                                 result.push(
                                                     {
                                                         key,
-                                                        table:table.sort((a,b) => b.pts-a.pts)
+                                                        table:sortBy(table,['name'])
                                                     }
                                                 )
                                             },
