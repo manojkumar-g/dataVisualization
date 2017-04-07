@@ -97,19 +97,19 @@ class Home extends React.Component {
                   width={300}
                   height={300}
                   standalone={false}
-                  data={tableData[season].table}
+                  data={sortBy(tableData[season].table,['name'])}
                   x = 'name'
                   y = 'pts'
                   labels={(d) => Math.round(d.y)}
                   innerRadius={60}
                   labelRadius={74}
                   padAngle={3}
-                  colorScale = {this.colorSchema()}
+                  colorScale = {'qualitative'}
                   style={{
                     data: {
                       width: 60,
-                      stroke:({x}) => x === interest ? 'white':'',
-                      strokeWidth: ({x}) => x === interest ? 3:0
+                      stroke:({x}) => x === interest ? '#B10DC9':'',
+                      strokeWidth: ({x}) => x === interest ? 5:0
                     },
                     labels: {
                       fill: 'black',
@@ -152,12 +152,14 @@ class Home extends React.Component {
                               <tr key = {'table'+no}>
                                 <td>{no+1}</td>
                                 <td style = {{cursor:'pointer'}}
+                                  className = {team.name === interest ?'teamName teamlike':'teamName'}
                                   onClick = {
                                     ()=>this.changeInterest(team.name)
                                   }
                                   >
-                                  <i className="fa fa-circle" aria-hidden="true" style = {{color:getColor(team.name)}}></i>
+
                                   {team.name}
+                                  {team.name === interest ?<i className="fa fa-heart liked" aria-hidden="true"></i>:''}
                                 </td>
                                 <td>
                                   {team.played}

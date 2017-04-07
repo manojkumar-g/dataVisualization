@@ -25,6 +25,6 @@ export const getColor = (name) => {
     case 'Rising Pune Supergiants':
       return '#85144B'
     default:
-      return '#85144B'
+      return 'red'
   }
 }
