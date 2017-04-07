@@ -1,5 +1,6 @@
 import React from 'react'
 import range from 'lodash/range'
+import sortBy from 'lodash/sortBy'
 import css from '../styles/home.styl'
 import { connect } from 'react-redux'
 import {
@@ -11,7 +12,6 @@ import {
 } from 'victory'
 import Dot from './Dot.jsx'
 import { getColor } from '../utils/colors'
-import sortBy from 'lodash/sortBy'
 
 
 class Home extends React.Component {
@@ -34,7 +34,6 @@ class Home extends React.Component {
       if(tableData.length > 0){
         return tableData[season].table.map(
           ({name}) => {
-            console.log(name)
             return getColor(name)
           }
         )
@@ -88,6 +87,7 @@ class Home extends React.Component {
                       }
                 }}
                 >
+
                 <VictoryPie
 
                   width={300}
@@ -111,12 +111,13 @@ class Home extends React.Component {
                     }
                   }} />
               </VictoryTransition>
-              <VictoryLabel
-                textAnchor='middle'
-                verticalAnchor='middle'
-                x={150}
-                y={150}
-                 />
+
+             <VictoryLabel
+               textAnchor="middle" verticalAnchor="middle"
+               x={150} y={150}
+               style={{fontSize: 20,fill:'white',fontFamily:'Revalia'}}
+               text={tableData[season].key.toUpperCase()}
+             />
                </svg>
 
               }
@@ -125,7 +126,35 @@ class Home extends React.Component {
                 {
                   tableData.length ===0 ? '':
                       <div className = 'tableData'>
-                        <span>{tableData[season].key}</span>
+                        <table>
+                          <tr>
+                            <th></th>
+                            <th>Team</th>
+                            <th>Pld</th>
+                            <th>Won</th>
+                            <th>pts</th>
+                            <th>Form</th>
+                          </tr>
+                          {
+                            tableData[season].table.sort(
+                              (a,b) => b.pts-a.pts
+                            ).map(
+                              (team,no) =>
+                              <tr>
+                                <td>{no+1}</td>
+                                <td>
+                                  <i className="fa fa-circle" aria-hidden="true" style = {{color:getColor(team.name)}}></i>
+                                  {team.name.split(' ')}
+                                </td>
+                                <td>
+                                  {team.played}
+                                </td>
+                                <td>{team.won}</td>
+                                <td>{team.pts}</td>
+                              </tr>
+                            )
+                          }
+                        </table>
                       </div>
                 }
 

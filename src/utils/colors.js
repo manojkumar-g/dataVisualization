@@ -11,7 +11,7 @@ export const getColor = (name) => {
     case 'Kings XI Punjab':
       return '#F012BE'
     case 'Kolkata Knight Riders':
-      return '#3D9970'
+      return 'tomato'
     case 'Rajasthan Royals':
       return '#B10DC9'
     case 'Royal Challengers Bangalore':

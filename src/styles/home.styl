@@ -5,7 +5,6 @@
   color white
 .homeContent
     column(1)
-    overflow-y: auto
     height: 90%
 .summary
   column(1)
@@ -29,21 +28,28 @@
   .dotActive
     animation: glow 1s infinite alternate
 .sumGraph
-  span(1/2)
+  span(3/8)
   height: 500px
 .table
-  span(1/2)
+  span(5/8)
   height: 500px
 .tableData
   column(1)
-  span
-    margin-top: 50px
-    column(1)
+  table
     font-family: Ubuntu
-    text-transform: uppercase
-    color maroon
-    font-size 2em
-  height: 100%
+    column(11/12)
+    padding 5px
+    background: black
+    color: white
+    margin-top: 50px
+    box-shadow: 0px 0px 34px 13px rgba(0,0,0,0.75)
+    th,td
+      padding: 5px 10px
+      padding-right: 0px
+      border-bottom: 1px solid $maroon
+
+
+
 @keyframes glow
   from
     transform scale(1.3)
