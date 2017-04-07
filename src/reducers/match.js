@@ -35,23 +35,35 @@ const reducer = (state = initialState,action) =>{
                                 )).map(
                                   name => ({name,data:[]})
                                 )
+                              console.log(table);
                                 forEach(value,
                                     ({id,team1,team2,winner}) =>{
+
                                         let play1 = findIndex(table, (n) => n.name == team1)
                                         let play2 = findIndex(table, (n) => n.name == team2)
-                                        let win = findIndex(table, (n) => n.name == winner)
-
-                                        if(win !== -1)
-                                            table[win] = {...table[win],won : table[win].won + 1,pts : table[win].pts + 2}
-                                        else{
-                                            table[play1] = {...table[play1],pts : table[play1].pts + 1}
-                                            table[play2] = {...table[play2],pts : table[play2].pts + 1}
+                                        if(team1 === winner){
+                                          table[play1] = {...table[play1],data : [...table[play1].data,{id,result:'W'}]}
+                                          table[play2] = {...table[play2],data : [...table[play2].data,{id,result:'L'}]}
                                         }
 
-
-
+                                        else if(winner ===''){
+                                          table[play1] = {...table[play1],data : [...table[play1].data,{id,result:'D'}]}
+                                          table[play2] = {...table[play2],data : [...table[play2].data,{id,result:'D'}]}
+                                        }
+                                        else{
+                                          table[play1] = {...table[play1],data : [...table[play1].data,{id,result:'L'}]}
+                                          table[play2] = {...table[play2],data : [...table[play2].data,{id,result:'W'}]}
+                                        }
                                     }
                                 )
+                          result.push(
+                              {
+                                  key,
+                                  table:sortBy(table,['name'])
+                              }
+                          )
+
+
               },[]
             )
             let tableData =   transform(
@@ -97,6 +109,7 @@ const reducer = (state = initialState,action) =>{
               requestMatchData : false,
               successDataFetch:true,
               seasonData,
+              teamForm,
               data,
               tableData
 

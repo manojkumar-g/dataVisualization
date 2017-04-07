@@ -156,17 +156,20 @@ class Home extends React.Component {
                                 <td>{team.won}</td>
                                 <td>{team.pts}</td>
                                 <td>
-
-                                  <VictoryLine width = {1} height = {10}
-                                    data={[
-                                  {month: "September", profit: 35000, loss: 2000},
-                                  {month: "October", profit: 42000, loss: 8000},
-                                  {month: "November", profit: 55000, loss: 5000}
-                                ]}
-                                  style = {{data: { stroke: getColor(team.name), strokeWidth: 3,opacity:0.7 }}}
-                                  x='month'
-                                  y={(datum) => datum.profit - datum.loss}
-                                  />
+                                  <svg viewBox = '0 0 450 300'>
+                                  <VictoryLine
+                                        data={[
+                                          {month: "September", profit: 35000, loss: 2000},
+                                          {month: "October", profit: 42000, loss: 8000},
+                                          {month: "November", profit: 55000, loss: 5000}
+                                        ]}
+                                        padding = {0}
+                                        style = {{data:{stroke:'red'},parent:{padding:0}}}
+                                        x="month"
+                                        standalone = {false}
+                                        y={(datum) => datum.profit - datum.loss}
+                                      />
+                                    </svg>
                                 </td>
                               </tr>
                             )
