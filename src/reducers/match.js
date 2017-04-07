@@ -27,6 +27,33 @@ const reducer = (state = initialState,action) =>{
             let seasonData = mapKeys(groupBy(data,'season'),
                                                 (_,key) => 'ipl'+key
                                                     )
+            let teamForm = transform(
+                            seasonData,
+                            (result,value,key) => {
+                              let table = uniq(value.map(
+                                  ({team1}) => team1
+                                )).map(
+                                  name => ({name,data:[]})
+                                )
+                                forEach(value,
+                                    ({id,team1,team2,winner}) =>{
+                                        let play1 = findIndex(table, (n) => n.name == team1)
+                                        let play2 = findIndex(table, (n) => n.name == team2)
+                                        let win = findIndex(table, (n) => n.name == winner)
+
+                                        if(win !== -1)
+                                            table[win] = {...table[win],won : table[win].won + 1,pts : table[win].pts + 2}
+                                        else{
+                                            table[play1] = {...table[play1],pts : table[play1].pts + 1}
+                                            table[play2] = {...table[play2],pts : table[play2].pts + 1}
+                                        }
+
+
+
+                                    }
+                                )
+              },[]
+            )
             let tableData =   transform(
                                             seasonData,
                                             (result,value,key) => {

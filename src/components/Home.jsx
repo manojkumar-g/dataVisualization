@@ -8,7 +8,8 @@ import {
   VictoryTransition,
   VictoryContainer,
   VictorySharedEvents,
-  VictoryLabel
+  VictoryLabel,
+  VictoryLine
 } from 'victory'
 import Dot from './Dot.jsx'
 import { getColor } from '../utils/colors'
@@ -127,6 +128,7 @@ class Home extends React.Component {
                   tableData.length ===0 ? '':
                       <div className = 'tableData'>
                         <table>
+                          <thead>
                           <tr>
                             <th></th>
                             <th>Team</th>
@@ -135,25 +137,41 @@ class Home extends React.Component {
                             <th>pts</th>
                             <th>Form</th>
                           </tr>
+                        </thead>
+                        <tbody>
                           {
                             tableData[season].table.sort(
                               (a,b) => b.pts-a.pts
                             ).map(
                               (team,no) =>
-                              <tr>
+                              <tr key = {'table'+no}>
                                 <td>{no+1}</td>
                                 <td>
                                   <i className="fa fa-circle" aria-hidden="true" style = {{color:getColor(team.name)}}></i>
-                                  {team.name.split(' ')}
+                                  {team.name}
                                 </td>
                                 <td>
                                   {team.played}
                                 </td>
                                 <td>{team.won}</td>
                                 <td>{team.pts}</td>
+                                <td>
+
+                                  <VictoryLine width = {1} height = {10}
+                                    data={[
+                                  {month: "September", profit: 35000, loss: 2000},
+                                  {month: "October", profit: 42000, loss: 8000},
+                                  {month: "November", profit: 55000, loss: 5000}
+                                ]}
+                                  style = {{data: { stroke: getColor(team.name), strokeWidth: 3,opacity:0.7 }}}
+                                  x='month'
+                                  y={(datum) => datum.profit - datum.loss}
+                                  />
+                                </td>
                               </tr>
                             )
                           }
+                        </tbody>
                         </table>
                       </div>
                 }

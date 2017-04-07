@@ -5,7 +5,7 @@ export const getColor = (name) => {
     case 'Chennai Super Kings':
       return '#FFDC00'
     case 'Deccan Chargers':
-      return '#001F3F'
+      return '#0074D9'
     case 'Kochi Tuskers Kerala':
       return '#DC143C'
     case 'Kings XI Punjab':
