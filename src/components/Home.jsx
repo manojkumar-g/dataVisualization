@@ -18,7 +18,7 @@ import { getColor } from '../utils/colors'
 class Home extends React.Component {
     constructor(props){
       super(props);
-      this.state = { data : [] ,season:0}
+      this.state = { data : [] ,season:0,interest : 'Royal Challengers Bangalore'}
     }
     componentDidMount(){
       window.setInterval(
@@ -45,9 +45,12 @@ class Home extends React.Component {
         season
       })
     }
+    changeInterest = (interest) =>{
+      this.setState({interest})
+    }
     render(){
       let { tableData,teamForm } = this.props
-      let { season } = this.state
+      let { season, interest } = this.state
       return(
         <section className="homeContent">
             <section className="summary">
@@ -104,7 +107,9 @@ class Home extends React.Component {
                   colorScale = {this.colorSchema()}
                   style={{
                     data: {
-                      width: 60
+                      width: 60,
+                      stroke:({x}) => x === interest ? 'white':'',
+                      strokeWidth: ({x}) => x === interest ? 3:0
                     },
                     labels: {
                       fill: 'black',
@@ -146,7 +151,11 @@ class Home extends React.Component {
                               (team,no) =>
                               <tr key = {'table'+no}>
                                 <td>{no+1}</td>
-                                <td>
+                                <td style = {{cursor:'pointer'}}
+                                  onClick = {
+                                    ()=>this.changeInterest(team.name)
+                                  }
+                                  >
                                   <i className="fa fa-circle" aria-hidden="true" style = {{color:getColor(team.name)}}></i>
                                   {team.name}
                                 </td>
