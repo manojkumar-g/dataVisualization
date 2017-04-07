@@ -26,7 +26,7 @@ class Home extends React.Component {
           let {tableData} = this.props
           let {season} = this.state
           this.setState({season : season+1 < tableData.length ?  season+1 : 0})
-      },4000
+      },6000
       )
     }
     colorSchema = () => {
@@ -46,7 +46,7 @@ class Home extends React.Component {
       })
     }
     render(){
-      let { tableData } = this.props
+      let { tableData,teamForm } = this.props
       let { season } = this.state
       return(
         <section className="homeContent">
@@ -116,7 +116,7 @@ class Home extends React.Component {
              <VictoryLabel
                textAnchor="middle" verticalAnchor="middle"
                x={150} y={150}
-               style={{fontSize: 20,fill:'white',fontFamily:'Revalia'}}
+               style={{fontSize: 20,fill:'white',fontFamily:'Ubuntu'}}
                text={tableData[season].key.toUpperCase()}
              />
                </svg>
@@ -135,7 +135,7 @@ class Home extends React.Component {
                             <th>Pld</th>
                             <th>Won</th>
                             <th>pts</th>
-                            <th>Form</th>
+                            <th>Pulse</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -157,17 +157,29 @@ class Home extends React.Component {
                                 <td>{team.pts}</td>
                                 <td>
                                   <svg viewBox = '0 0 450 300'>
+
                                   <VictoryLine
-                                        data={[
-                                          {month: "September", profit: 35000, loss: 2000},
-                                          {month: "October", profit: 42000, loss: 8000},
-                                          {month: "November", profit: 55000, loss: 5000}
-                                        ]}
+                                        data = {(() =>{
+                                          let pts = 0
+                                          return teamForm[season].table.filter(
+                                            ({name}) => team.name === name
+                                          )[0].data.map(
+                                            ({result},x) => {
+                                              if(result ==='W')
+                                                pts = pts+1
+                                              if(result === 'L') {
+                                                pts = pts -1
+                                              }
+                                              return {x,y:pts}
+                                            }
+                                          )
+
+                                        })()}
+                                        interpolation="basis"
                                         padding = {0}
-                                        style = {{data:{stroke:'red'},parent:{padding:0}}}
-                                        x="month"
+                                        style = {{data:{stroke:getColor(team.name)},parent:{padding:0}}}
+
                                         standalone = {false}
-                                        y={(datum) => datum.profit - datum.loss}
                                       />
                                     </svg>
                                 </td>

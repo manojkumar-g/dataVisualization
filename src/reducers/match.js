@@ -35,7 +35,6 @@ const reducer = (state = initialState,action) =>{
                                 )).map(
                                   name => ({name,data:[]})
                                 )
-                              console.log(table);
                                 forEach(value,
                                     ({id,team1,team2,winner}) =>{
 
