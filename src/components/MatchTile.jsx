@@ -1,11 +1,18 @@
 import React from 'react'
+import {Motion,spring,presets} from 'react-motion'
+import ScoreGraph from './ScoreGraph.jsx'
 
 export default class MatchTile extends React.Component{
   constructor(props) {
     super(props)
+    this.state = {show:false}
+  }
+  toggle = ()=>{
+    this.setState({show:!this.state.show})
   }
   render(){
     let {data} = this.props
+    let {show} = this.state
     return(
       <div className="matchTile" >
         <ul>
@@ -44,12 +51,28 @@ export default class MatchTile extends React.Component{
                 Toss was won by {data.toss_winner} and decided to {data.toss_decision}
               </h5>
               <h3 className="stats">
-                <span>
+                <span onClick = {this.toggle}>
                   View Stats
                 </span>
 
               </h3>
         </article>
+        <article className="toggler">
+
+          <Motion
+            style = {{
+              height: spring(show ? 400 : 0),
+              opacity: spring(show ? 1 : 0)
+            }}
+            >
+            {
+              ({height,opacity}) => <div className="hidefoot" style = {{height : height +'px',opacity}}>
+                          {show && <ScoreGraph/>}
+                      </div>
+            }
+          </Motion>
+        </article>
+
       </div>
     )
   }
