@@ -4,6 +4,7 @@ import {Motion,spring,presets} from 'react-motion'
 import css from '../styles/land.styl'
 import Menu from '../components/Menu.jsx'
 import Home from '../components/Home.jsx'
+import Model from '../components/Model.jsx'
 import { getMatchData } from '../actions'
 
 class App extends React.Component{
@@ -39,7 +40,7 @@ class App extends React.Component{
                     opacity
                   }}
                   >
-
+                      <Model data = {this.props.data}/>
                 </div>
               }
 
@@ -53,6 +54,6 @@ class App extends React.Component{
 }
 
 export default connect(
-    undefined,
+    (state) => ({data: state.MatchData.tableData}),
     {getMatchData}
 )(App)

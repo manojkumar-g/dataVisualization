@@ -11,6 +11,7 @@ import sortBy from 'lodash/sortBy'
 const initialState = {
     seasonData:{},
     tableData :[],
+    teamForm :[],
     error:'',
     requestMatchData :false,
     successDataFetch:false

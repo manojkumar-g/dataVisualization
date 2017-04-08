@@ -177,9 +177,12 @@ class Home extends React.Component {
                                           )[0].data.map(
                                             ({result},x) => {
                                               if(result ==='W')
-                                                pts = pts+1
+                                                pts = pts+2
                                               if(result === 'L') {
-                                                pts = pts -1
+                                                pts = pts -2
+                                              }
+                                              if(result === 'D') {
+                                                pts = pts+1
                                               }
                                               return {x,y:pts}
                                             }
