@@ -12,21 +12,12 @@ export default class Model extends React.Component {
       team2:t
     }
   }
-  // componentWillReceiveProps(nextProps){
-  //   let {data} = nextProps
-  //   if(data.length >0){
-  //     this.setState({
-  //       season : data.map(({key})=> ({key,isSelected:false}))
-  //     })
-  //   }
-  // }
-  // shouldComponentUpdate(nextProps, nextState){
-  //   if(this.props.data.length > 0)
-  //     return true
-  //   return false
-  // }
-  toggleSeason = (key) =>{
-
+  toggleValue = (field,k) => {
+    this.setState({
+      [field]:this.state[field].map(
+        ({key,isSelected}) => key === k ? ({key,isSelected:!isSelected}) : ({key,isSelected})
+      )
+    })
   }
   render(){
     let {tableData} = this.props
@@ -39,7 +30,13 @@ export default class Model extends React.Component {
             {
               season.map(
                 ({key,isSelected}) =>
-                <li key = {'season'+key}>{key}</li>
+                <li
+                  key = {'season'+key}
+                  onClick = {() => {this.toggleValue('season',key)}}
+                  className = {isSelected ? 'isSelected':''}
+                  >
+                    {key}
+                </li>
               )
             }
           </ul>
@@ -50,7 +47,13 @@ export default class Model extends React.Component {
             {
               team1.map(
                 ({key,isSelected}) =>
-                <li key = {'team1'+key}>{key.split(' ').map(m => m.charAt(0))}</li>
+                <li
+                  key = {'team1'+key}
+                  onClick = {() => {this.toggleValue('team1',key)}}
+                  className = {isSelected ? 'isSelected':''}
+                >
+                  {key.split(' ').map(m => m.charAt(0))}
+                </li>
               )
             }
           </ul>
@@ -61,7 +64,13 @@ export default class Model extends React.Component {
             {
               team2.map(
                 ({key,isSelected}) =>
-                <li key = {'team2'+key}>{key.split(' ').map(m => m.charAt(0))}</li>
+                <li
+                  key = {'team2'+key}
+                  onClick = {() => {this.toggleValue('team2',key)}}
+                  className = {isSelected ? 'isSelected':''}
+                  >
+                    {key.split(' ').map(m => m.charAt(0))}
+                  </li>
               )
             }
           </ul>

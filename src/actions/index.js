@@ -13,7 +13,6 @@ const failureMatchDataRequest = () => ({
   type : 'FAILURE_MATCH_DATA'
 })
 
-
 export const getMatchData = () =>
   dispatch => {
     dispatch(requestMatchData());

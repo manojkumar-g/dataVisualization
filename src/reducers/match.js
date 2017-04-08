@@ -14,7 +14,12 @@ const initialState = {
     teamForm :[],
     error:'',
     requestMatchData :false,
-    successDataFetch:false
+    successDataFetch:false,
+    filters : {
+        season :[],
+        team1 : [],
+        team2 : []
+    }
 }
 const reducer = (state = initialState,action) =>{
     switch (action.type) {

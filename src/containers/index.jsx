@@ -40,7 +40,7 @@ class App extends React.Component{
                     opacity
                   }}
                   >
-                      <Model data = {this.props.data}/>
+                      <Model/>
                 </div>
               }
 
@@ -54,6 +54,6 @@ class App extends React.Component{
 }
 
 export default connect(
-    (state) => ({data: state.MatchData.tableData}),
+    undefined,
     {getMatchData}
 )(App)
