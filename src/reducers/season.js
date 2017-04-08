@@ -7,8 +7,10 @@ import uniq from 'lodash/uniq'
 import forEach from 'lodash/forEach'
 import findIndex from 'lodash/findIndex'
 import sortBy from 'lodash/sortBy'
+import flatten from 'lodash/flatten'
 
 const initialState = {
+    data:[],
     seasonData:{},
     tableData :[],
     teamForm :[],
@@ -18,8 +20,9 @@ const initialState = {
     filters : {
         season :[],
         team1 : [],
-        team2 : []
-    }
+        team2 : [],
+    },
+    resultData:[]
 }
 const reducer = (state = initialState,action) =>{
     switch (action.type) {
@@ -125,6 +128,36 @@ const reducer = (state = initialState,action) =>{
               requestDataFetch : false,
               successDataFetch:false
             }
+        case 'APPLY_FILTER':
+          let{season,team1,team2} = action.filters
+          let result = state.data
+          if(season.length > 0){
+            let {seasonData} = state
+            result = flatten([...season.map(
+              s => seasonData[s]
+            )])
+          }
+          if(team1.length > 0){
+            result = flatten(team1.map(
+              team => result.filter(
+                t => t.team1 === team || t.team2 === team
+              )
+            ))
+          }
+          if(team2.length > 0){
+            result = flatten(team2.map(
+              team => result.filter(
+                t => t.team1 === team || t.team2 === team
+              )
+            ))
+          }
+          console.log(result);
+          
+          return {
+            ...state,
+            filters : action.filters,
+            resultData : result
+          }
     default:
       return state;
 

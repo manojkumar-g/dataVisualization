@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import MatchData from './match'
+import seasonData from './season'
 export default combineReducers(
-    {MatchData}
+    {seasonData}
 )

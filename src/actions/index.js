@@ -27,7 +27,7 @@ export const getMatchData = () =>
 
   }
 
-export const setFilter = (filters) => ({
+export const setFilters = (filters) => ({
   type : 'APPLY_FILTER',
   filters
 })

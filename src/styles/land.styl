@@ -56,16 +56,14 @@ body
     background: maroon
     &::before
       height: 60px
-
-  .menuItem:first-of-type
-     margin-top: 0px
 .model
   position absolute
   left 0
   height 100%
   background gray
   z-index 1
-  box-shadow: 49px 24px 137px 2px maroon
+  border 10px solid maroon
+  border-left 0
 .modelData
   column(1)
   height 100%
@@ -117,3 +115,4 @@ body
     glossy-button: orange 18 white
 .isSelected
   background $maroon
+  color white

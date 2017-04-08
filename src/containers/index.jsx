@@ -4,7 +4,7 @@ import {Motion,spring,presets} from 'react-motion'
 import css from '../styles/land.styl'
 import Menu from '../components/Menu.jsx'
 import Model from '../components/Model.jsx'
-import { getMatchData } from '../actions'
+import { getMatchData,setFilters } from '../actions'
 
 class App extends React.Component{
   constructor(props){
@@ -39,7 +39,7 @@ class App extends React.Component{
                     opacity
                   }}
                   >
-                      <Model toggleModel = {this.toggleSeachBox}/>
+                      <Model toggleModel = {this.toggleSeachBox} setFilters = { this.props.setFilters}/>
                 </div>
               }
 
@@ -54,5 +54,5 @@ class App extends React.Component{
 
 export default connect(
     undefined,
-    {getMatchData}
+    {getMatchData,setFilters}
 )(App)

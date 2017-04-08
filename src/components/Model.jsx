@@ -21,6 +21,20 @@ export default class Model extends React.Component {
     })
   }
   onSubmit = () => {
+    let {season,team1, team2} = this.state
+    this.props.setFilters(
+                    {
+                      season : season.filter(
+                        ({isSelected}) => isSelected
+                      ).map(({key}) => key),
+                      team1 : team1.filter(
+                        ({isSelected}) => isSelected
+                      ).map(({key}) => key),
+                      team2 : team2.filter(
+                        ({isSelected}) => isSelected
+                      ).map(({key}) => key)
+                    }
+    )
     this.props.toggleModel()
   }
   render(){

@@ -54,7 +54,7 @@ class Home extends React.Component {
       return(
         <section className="homeContent">
             <section className="summary">
-              <h1>Summary</h1>
+              <h1>IPL 2008-16</h1>
               <article className="dots">
               {
                 range(tableData.length).map(
@@ -214,6 +214,6 @@ class Home extends React.Component {
 }
 
 export default connect(
-    ({MatchData}) => ({...MatchData}),
+    ({seasonData}) => ({...seasonData}),
     {}
 )(Home)
