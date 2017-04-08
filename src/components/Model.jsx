@@ -1,6 +1,7 @@
 import React from 'react'
 import teams from '../utils/teams'
 import range from 'lodash/range'
+import {Link} from 'react-router'
 
 export default class Model extends React.Component {
   constructor(props) {
@@ -18,6 +19,9 @@ export default class Model extends React.Component {
         ({key,isSelected}) => key === k ? ({key,isSelected:!isSelected}) : ({key,isSelected})
       )
     })
+  }
+  onSubmit = () => {
+    this.props.toggleModel()
   }
   render(){
     let {tableData} = this.props
@@ -76,7 +80,7 @@ export default class Model extends React.Component {
           </ul>
         </article>
         <article className="seasonsubmit">
-          <h1>Submit</h1>
+          <Link to={'results'} onClick = {this.onSubmit}><h1>Submit</h1></Link>
         </article>
       </section>
     )

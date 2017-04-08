@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import {Motion,spring,presets} from 'react-motion'
 import css from '../styles/land.styl'
 import Menu from '../components/Menu.jsx'
-import Home from '../components/Home.jsx'
 import Model from '../components/Model.jsx'
 import { getMatchData } from '../actions'
 
@@ -25,7 +24,7 @@ class App extends React.Component{
       <div className="container">
         <Menu toggleSeachBox = {this.toggleSeachBox} isOpen = {this.state.searchBox}/>
         <section className="content">
-            <Home/>
+            {this.props.children}
             <Motion
               style = {{
                 x: spring(searchBox ? 50 : 0,presets.wobbly),
@@ -40,7 +39,7 @@ class App extends React.Component{
                     opacity
                   }}
                   >
-                      <Model/>
+                      <Model toggleModel = {this.toggleSeachBox}/>
                 </div>
               }
 
