@@ -4,6 +4,7 @@ import mapKeys from 'lodash/mapKeys'
 import keysIn from 'lodash/keysIn'
 import transform from 'lodash/transform'
 import uniq from 'lodash/uniq'
+import uniqBy from 'lodash/uniqBy'
 import forEach from 'lodash/forEach'
 import findIndex from 'lodash/findIndex'
 import sortBy from 'lodash/sortBy'
@@ -145,14 +146,13 @@ const reducer = (state = initialState,action) =>{
             ))
           }
           if(team2.length > 0){
-            result = flatten(team2.map(
+            result = uniqBy(flatten(team2.map(
               team => result.filter(
                 t => t.team1 === team || t.team2 === team
               )
-            ))
+            )),'id')
           }
-          console.log(result);
-          
+
           return {
             ...state,
             filters : action.filters,
