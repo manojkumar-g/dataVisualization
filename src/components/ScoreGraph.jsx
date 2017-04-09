@@ -30,7 +30,15 @@ export default class ScoreGraph extends React.Component {
         )
   }
   parseData = (data) => {
+        this.setState({
+          firstInd : data.filter(
+            ({inning}) => inning == 1
+          ),
+          secondInd:  data.filter(
+            ({inning}) => inning == 2
+          )
 
+        })
   }
   render(){
     let styles = {
@@ -61,10 +69,16 @@ export default class ScoreGraph extends React.Component {
         }
       },
       teamOne:{
-        data:{}
+        data:{stroke:'#F012BE',strokeWidth:5,strokeOpacity:0.7},
+        parent:{padding:0}
+      },
+      teamTwo:{
+        data:{stroke:'#FF851B',strokeWidth:5,strokeOpacity:0.7},
+        parent:{padding:0}
       }
 
     }
+    let {firstInd,secondInd} = this.state
     return(
       <section className="scoreGraphy">
         <header className="graphHead">
@@ -87,11 +101,36 @@ export default class ScoreGraph extends React.Component {
               style={styles.yAxis}
             />
             <VictoryLine
+              data = {(() =>{
+                let score = 0
+                 return firstInd.map(
+                  ({total_runs},x) => {
+                    score = score+parseInt(total_runs)
+                    return {x,y:score}
+                  })
+
+
+              })()}
               interpolation="basis"
               padding = {0}
-              style = {{data:{stroke:'#F012BE',strokeWidth:5,opacity:0.7},parent:{padding:0}}}
+              style = {styles.teamOne}
             />
-            <VictoryScatter></VictoryScatter>
+            <VictoryLine
+              data = {(() =>{
+                let score = 0
+                 return secondInd.map(
+                  ({total_runs},x) => {
+                    score = score+parseInt(total_runs)
+                    return {x,y:score}
+                  })
+
+
+              })()}
+              interpolation="basis"
+              padding = {0}
+              style = {styles.teamTwo}
+            />
+
         </VictoryChart>
 
       </g>
