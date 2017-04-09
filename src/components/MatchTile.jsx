@@ -43,7 +43,7 @@ export default class MatchTile extends React.Component{
                 {
                    data.win_by_runs != 0 ? data.win_by_runs+
                      ' Runs' :
-                      data.win_by_wickets+' by Wickets'
+                      data.win_by_wickets+' Wickets'
                 }
               </h2>
               <h5>Man of The Match : {data.player_of_match}</h5>

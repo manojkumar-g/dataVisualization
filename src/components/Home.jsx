@@ -72,7 +72,7 @@ class Home extends React.Component {
               <article className="sumGraph">
               {tableData.length == 0 ?'':
 
-              <svg height={300}>
+              <svg viewBox = '0 0 450 300'>
               <VictoryTransition
                 animationWhitelist={['data']}
                 animate={{

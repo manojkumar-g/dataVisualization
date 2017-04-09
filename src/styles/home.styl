@@ -7,7 +7,6 @@
   color white
 .homeContent
     column(1)
-    height: 100%
 .summary
   column(1)
   h1
@@ -32,18 +31,21 @@
 .sumGraph
   span(3/8)
   height: 500px
+  +below(600px)
+    stack()
 .table
   span(5/8)
   height: 500px
 .tableData
   column(1)
+  +below(600px)
+    stack()
   table
     font-family: Ubuntu
     column(11/12)
     padding 5px
     background: black
     color: white
-    margin-top: 50px
     th,td
       padding: 5px 10px
       padding-right: 0px
@@ -58,7 +60,7 @@
   font-size: 1.5em
 .teamName:hover,.teamlike
   background: purple
-  
+
 @keyframes glow
   from
     transform scale(1.3)

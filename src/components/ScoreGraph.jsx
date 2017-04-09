@@ -5,7 +5,9 @@ import {
   VictoryAxis,
   VictoryTheme,
   VictoryLine,
-  VictoryScatter
+  VictoryScatter,
+  VictoryLabel,
+  VictoryTooltip
 } from 'victory'
 
 export default class ScoreGraph extends React.Component {
@@ -15,7 +17,8 @@ export default class ScoreGraph extends React.Component {
       firstInd:[],
       secondInd:[],
       isLoading:true,
-      data:[]
+      teamOne:'',
+      teamTwo:''
     }
   }
   componentDidMount(){
@@ -36,7 +39,9 @@ export default class ScoreGraph extends React.Component {
           ),
           secondInd:  data.filter(
             ({inning}) => inning == 2
-          )
+          ),
+          teamOne:data[0]['batting_team'],
+          teamTwo:data[0]['bowling_team']
 
         })
   }
@@ -75,23 +80,38 @@ export default class ScoreGraph extends React.Component {
       teamTwo:{
         data:{stroke:'#FF851B',strokeWidth:5,strokeOpacity:0.7},
         parent:{padding:0}
+      },
+      wickets:{
+        data:{stroke:'#D13F19',strokeWidth:5,strokeOpacity:0.7},
+        parent:{padding:0}
       }
 
     }
-    let {firstInd,secondInd} = this.state
+    let {firstInd,secondInd,teamOne,teamTwo} = this.state
+
     return(
       <section className="scoreGraphy">
         <header className="graphHead">
 
         </header>
         <svg style={styles.parent} viewBox="0 0 450 350">
+          <rect x="370" y="50" width="10" height="10" fill="#F012BE"/>
+          <rect x="370" y="70" width="10" height="10" fill="#FF851B"/>
+          <VictoryLabel x={370+20} y={55}
+            text={teamOne} style = {{fill:'#F012BE'}}
+          />
+          <VictoryLabel x={370+20} y={75}
+            text={teamTwo} style = {{fill:'#FF851B'}}
+          />
         <g transform={"translate(-100, 40)"}>
-        <VictoryChart standalone = {false}>
+        <VictoryChart standalone = {false}
+
+          >
           <VictoryAxis
             style = {styles.xAxis}
             paddin = {0}
             samples = {20}
-            domain = {[0,21]}
+            domain = {[0,130]}
           />
           <VictoryAxis
               dependentAxis
@@ -101,6 +121,7 @@ export default class ScoreGraph extends React.Component {
               style={styles.yAxis}
             />
             <VictoryLine
+              animate={{ duration: 1000, easing: "linear"}}
               data = {(() =>{
                 let score = 0
                  return firstInd.map(
@@ -116,6 +137,7 @@ export default class ScoreGraph extends React.Component {
               style = {styles.teamOne}
             />
             <VictoryLine
+              animate={{ duration: 2000, easing: "linear"}}
               data = {(() =>{
                 let score = 0
                  return secondInd.map(
@@ -123,11 +145,48 @@ export default class ScoreGraph extends React.Component {
                     score = score+parseInt(total_runs)
                     return {x,y:score}
                   })
-
-
               })()}
               interpolation="basis"
               padding = {0}
+              style = {styles.teamTwo}
+            />
+            <VictoryScatter
+              labelComponent={<VictoryTooltip/>}
+              animate={{ duration: 2000, easing: "linear"}}
+              data = {(() =>{
+                let score = 0
+                 return firstInd.map(
+                  ({total_runs,player_dismissed,bowler,dismissal_kind,fielder},x) => {
+                    score = score+parseInt(total_runs)
+                    return {x,
+                      y:score,
+                      label:player_dismissed+'\n b '+bowler+'\n'+dismissal_kind+' '+fielder,
+                      isWicket:player_dismissed.length > 0
+                    }
+                  }).filter(
+                    ({isWicket}) => isWicket
+                  )
+              })()}
+
+              style = {styles.teamOne}
+            />
+            <VictoryScatter
+              labelComponent={<VictoryTooltip/>}
+              animate={{ duration: 2000, easing: "linear"}}
+              data = {(() =>{
+                let score = 0
+                 return secondInd.map(
+                  ({total_runs,player_dismissed,bowler,dismissal_kind,fielder},x) => {
+                    score = score+parseInt(total_runs)
+                    return {x,
+                      y:score,
+                      label:player_dismissed+'\n b '+bowler+'\n'+dismissal_kind+' '+fielder,
+                      isWicket:player_dismissed.length > 0
+                    }
+                  }).filter(
+                    ({isWicket}) => isWicket
+                  )
+              })()}
               style = {styles.teamTwo}
             />
 
