@@ -13,5 +13,9 @@ const convToJson = (filePath) =>{
 console.log('reading matches.csv')
 let matches = convToJson('../csv/matches.csv')
 console.log('reading deliveries.csv')
-let deliveries = convToJson('../csv/deliveries.csv');
-export const getTotalMatches = () => matches;
+let deliveries = convToJson('../csv/deliveries.csv')
+export const getTotalMatches = () => matches
+export const getMatchDeliveries =
+                    (id) => deliveries.filter(
+                      ({match_id}) => match_id == id
+                    )
