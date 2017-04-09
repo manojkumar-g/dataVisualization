@@ -21,7 +21,7 @@ class Home extends React.Component {
       this.state = { data : [] ,season:0,interest : 'Royal Challengers Bangalore'}
     }
     componentDidMount(){
-      window.setInterval(
+      this.setStateInterval = window.setInterval(
         () => {
           let {tableData} = this.props
           let {season} = this.state
@@ -29,6 +29,9 @@ class Home extends React.Component {
       },6000
       )
     }
+    componentWillUnmount() {
+    window.clearInterval(this.setStateInterval);
+  }
     colorSchema = () => {
       let {tableData} = this.props
       let {season} = this.state

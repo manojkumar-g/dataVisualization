@@ -67,7 +67,8 @@ export default class MatchTile extends React.Component{
             >
             {
               ({height,opacity}) => <div className="hidefoot" style = {{height : height +'px',opacity}}>
-                          {show && <ScoreGraph/>}
+                          {show && <ScoreGraph matchId = {data.id}/>}
+
                       </div>
             }
           </Motion>
