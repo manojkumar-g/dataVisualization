@@ -31,6 +31,9 @@ var config = {
 
     ]
   },
+  stylus: {
+  use: [jeet(),rupture(),axis(),autoprefix(),nib()]
+   },
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({
             name: 'vendor',
